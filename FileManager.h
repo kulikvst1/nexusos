@@ -1,0 +1,58 @@
+#pragma once
+#include <JuceHeader.h>
+#include <functional>
+#include <memory>
+
+class FileManager
+{
+public:
+    /**
+      * Асинхронно вызывает диалог сохранения файла.
+      *
+      * @param dialogTitle Заголовок диалогового окна.
+      * @param fileFilter Фильтр файлов (например, "*.ini").
+      * @param callback Функция, которая будет вызвана после выбора файла.
+      */
+    static void chooseSaveFileAsync(const juce::String& dialogTitle,
+        const juce::String& fileFilter,
+        std::function<void(const juce::File&)> callback)
+    {
+        // Используем shared_ptr вместо unique_ptr, чтобы лямбда была копируемой.
+        auto fileChooser = std::make_shared<juce::FileChooser>(
+            dialogTitle,
+            juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory),
+            fileFilter);
+
+        fileChooser->launchAsync(juce::FileBrowserComponent::saveMode,
+            [callback, fileChooser](const juce::FileChooser& chooser)
+            {
+                // При завершении диалога получаем выбранный файл
+                juce::File selectedFile = chooser.getResult();
+                callback(selectedFile);
+            });
+    }
+
+    /**
+      * Асинхронно вызывает диалог открытия файла.
+      *
+      * @param dialogTitle Заголовок диалогового окна.
+      * @param fileFilter Фильтр файлов (например, "*.ini").
+      * @param callback Функция, которая будет вызвана после выбора файла.
+      */
+    static void chooseLoadFileAsync(const juce::String& dialogTitle,
+        const juce::String& fileFilter,
+        std::function<void(const juce::File&)> callback)
+    {
+        auto fileChooser = std::make_shared<juce::FileChooser>(
+            dialogTitle,
+            juce::File::getSpecialLocation(juce::File::userApplicationDataDirectory),
+            fileFilter);
+
+        fileChooser->launchAsync(juce::FileBrowserComponent::openMode,
+            [callback, fileChooser](const juce::FileChooser& chooser)
+            {
+                juce::File selectedFile = chooser.getResult();
+                callback(selectedFile);
+            });
+    }
+};
