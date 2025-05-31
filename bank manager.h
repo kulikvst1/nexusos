@@ -4,7 +4,7 @@
 #include <vector>
 #include <functional>
 #include "FileManager.h"
-#include"vst_host.h"
+
 //==============================================================================
 // Компонент BankRow — отображает один банк в виде двух строк:
 // • Верхняя строка содержит: поле для имени банка, 6 редакторов для имен пресетов,
@@ -258,10 +258,6 @@ public:
         std::vector<int> ccMapping;     // Для 10 контроллеров
         int pluginPreset = 0;
 
-        // Новые поля для состояния плагина:
-        std::vector<juce::String> pluginPresetStates; // Для каждого из 6 пресетов
-        juce::String loadedPluginPath;                // Путь или идентификатор плагина
-
         Bank()
         {
             ccPresetStates.resize(6);
@@ -276,13 +272,8 @@ public:
             for (int i = 0; i < 10; ++i)
                 ccMapping[i] = i + 1;
             pluginPreset = 1;
-
-            // Инициализируем новые поля:
-            pluginPresetStates.assign(6, ""); // по 6 пустых строк, по одной для каждого пресета
-            loadedPluginPath = "";            // по умолчанию плагин не загружен
         }
     };
-
 
     const std::vector<Bank>& getBanks() const { return banks; }
     std::vector<Bank>& getBanks() { return banks; }
@@ -299,28 +290,8 @@ public:
             // ccMapping и pluginPreset установлены в конструкторе Bank.
         }
         currentBankIndex = 0;
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // ** Устанавливаем callback здесь: **
-        if (vstHostComponent != nullptr)
-        {
-            vstHostComponent->onSavePresetCallback = [this](int presetIndex, const juce::String& stateString)
-                {
-                    if (currentBankIndex >= 0 && currentBankIndex < banks.size())
-                    {
-                        banks[currentBankIndex].pluginPresetStates[presetIndex] = stateString;
 
-                        // Поскольку в вашем VSTHostComponent нет метода getLastLoadedPluginPath(),
-                        // вы можете либо удалить эту строку, либо установить пустую строку (или другое значение)
-                        // Например, просто:
-                        banks[currentBankIndex].loadedPluginPath = "";  // или оставьте как есть
-
-                        saveSettingsToFile(configFile);
-                    }
-                };
-        }
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        /// Создаем контейнер для строк BankRow
+        // Создаем контейнер для строк BankRow
         rowContainer = std::make_unique<juce::Component>();
         for (int i = 0; i < (int)banks.size(); ++i)
         {
@@ -361,8 +332,6 @@ public:
 
         addAndMakeVisible(viewport);
         viewport.setViewedComponent(rowContainer.get(), false);
-
-
 
         // Добавляем кнопку сброса дефолтных настроек с обработчиком через всплывающее меню
         resetDefaultsButton.setButtonText("Reset Defaults");
@@ -433,26 +402,46 @@ public:
         stopTimer();
     }
 
-    void resized() override
+    void BankManager::resized() override
     {
+        // 1) Разметка кнопки сброса внизу
         auto bounds = getLocalBounds();
-        // Выделяем в нижней части место для кнопки сброса
-        int buttonHeight = 40;
-        resetDefaultsButton.setBounds(bounds.removeFromBottom(buttonHeight).reduced(10));
+        constexpr int buttonHeight = 40;
+        resetDefaultsButton.setBounds(bounds.removeFromBottom(buttonHeight)
+            .reduced(10));
+
+        // 2) Оставшееся пространство — для viewport
         viewport.setBounds(bounds);
 
-        // Размеры rowContainer внутри viewport:
-        int rowHeight = 100;
-        int gap = 8;
-        rowContainer->setSize(viewport.getWidth(), bankRows.size() * (rowHeight + gap));
+        // 3) Параметры строки
+        constexpr int rowHeight = 100;
+        constexpr int gap = 8; // тут можно 0, т.к. один ряд
 
-        int y = 0;
-        for (auto& row : bankRows)
+        // 4) Устанавливаем размер контейнера ровно под один ряд
+        rowContainer->setSize(viewport.getWidth(),
+            rowHeight + gap);
+
+        // 5) Показываем и лэйаутим только активный ряд,
+        //    остальным делаем setVisible(false)
+        const int N = bankRows.size();
+        for (int i = 0; i < N; ++i)
         {
-            row->setBounds(0, y, rowContainer->getWidth(), rowHeight);
-            y += rowHeight + gap;
+            auto* row = bankRows[i];
+            if (i == currentBankIndex)
+            {
+                row->setVisible(true);
+                // y=0 => ряд всегда вверху viewport’а
+                row->setBounds(0, 0,
+                    rowContainer->getWidth(),
+                    rowHeight);
+            }
+            else
+            {
+                row->setVisible(false);
+            }
         }
     }
+
 
     const Bank& getBank(int index) const { jassert(index >= 0 && index < banks.size()); return banks[index]; }
     int getActiveBankIndex() const { return currentBankIndex; }
@@ -469,11 +458,21 @@ public:
     }
 
     /** Обновляет подсветку активного банка. */
-    void updateRowHighlighting()
+    void BankManager::updateRowHighlighting()
     {
+        // currentBankIndex — ваш индекс “активного” банка
         for (int i = 0; i < bankRows.size(); ++i)
-            bankRows[i]->setHighlighted(i == currentBankIndex);
+        {
+            bool isActive = (i == currentBankIndex);
+            bankRows[i]->setVisible(isActive);
+            if (isActive)
+                bankRows[i]->toFront(false);
+        }
+
+        // после смены видимости — обновляем лэйаут
+        resized();
     }
+
 
     /** Обновляет состояние поля ввода номера плагина-пресета во всех банках.
         Если supported == false, поле блокируется и вместо числа отображается "n/a". */
@@ -541,35 +540,7 @@ public:
             onBankManagerChanged();
         saveSettings();
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void BankManager::setVSTHostComponent(VSTHostComponent* hostComponent, const juce::File& config)
-    {
-        vstHostComponent = hostComponent;
-        configFile = config;
-        if (vstHostComponent != nullptr)
-        {
-            vstHostComponent->onSavePresetCallback = [this](int presetIndex, const juce::String& stateString)
-                {
-                    if (currentBankIndex >= 0 && currentBankIndex < banks.size())
-                    {
-                        banks[currentBankIndex].pluginPresetStates[presetIndex] = stateString;
-                        banks[currentBankIndex].loadedPluginPath = ""; // Нет getLastLoadedPluginPath(), поэтому задаем пустую строку или другое значение
-                        saveSettingsToFile(configFile);
-                    }
-                };
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // Метод загрузки сохранённого состояния плагина для выбранного пресета
-    void loadPreset(int presetIndex);
-    /*
-    // Например, если в банке хранится текущий индекс:
-    int getActiveBankIndex() const { return currentBankIndex; }
-    const std::vector<Bank>& getBanks() const { return banks; }
-    */
 private:
     std::vector<Bank> banks;
     int currentBankIndex = 0;
@@ -577,10 +548,6 @@ private:
     std::unique_ptr<juce::Component> rowContainer;
     juce::Viewport viewport;
     juce::TextButton resetDefaultsButton;
-
-    // Указатель на VSTHostComponent должен у вас быть где-то (либо передаваться извне, либо как член)
-    VSTHostComponent* vstHostComponent = nullptr;
-    juce::File configFile;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BankManager)
 };
