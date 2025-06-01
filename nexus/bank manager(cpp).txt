@@ -1,0 +1,189 @@
+
+
+#include "bank manager.h"
+#include <algorithm>
+#include <juce_core/juce_core.h>     // PropertiesFile, String, StringArray и т.д.
+
+void BankManager::saveSettingsToFile(const juce::File& configFile)
+{
+    juce::PropertiesFile::Options opts;
+    opts.applicationName = "MyBankManagerApp";
+    juce::PropertiesFile props(configFile, opts);
+
+    for (int i = 0; i < (int)banks.size(); ++i)
+    {
+        auto& b = banks[i];
+
+        // 1) Имя банка
+        props.setValue("bankName_" + juce::String(i), b.bankName);
+
+        // 2) Для каждого из 6 пресетов: имя, CC-состояния и громкость
+        for (int j = 0; j < 6; ++j)
+        {
+            // a) имя пресета
+            props.setValue("bank_" + juce::String(i)
+                + "_preset_" + juce::String(j),
+                b.presetNames[j]);
+
+            // b) ccPresetStates[j] как "0,1,0,0,1,…"
+            juce::String stateStr;
+            for (int k = 0; k < (int)b.ccPresetStates[j].size(); ++k)
+            {
+                stateStr += b.ccPresetStates[j][k] ? '1' : '0';
+                if (k < (int)b.ccPresetStates[j].size() - 1)
+                    stateStr += ',';
+            }
+            props.setValue("bank_" + juce::String(i)
+                + "_ccStates_" + juce::String(j),
+                stateStr);
+
+            // c) presetVolumes[j] (сохраняем как double)
+            props.setValue("bank_" + juce::String(i)
+                + "_volume_" + juce::String(j),
+                (double)b.presetVolumes[j]);
+        }
+
+        // 3) Полный CC-mapping: paramIndex, enabled, ccValue
+        juce::String idxStr, enStr, valStr;
+        for (int k = 0; k < (int)b.ccMappings.size(); ++k)
+        {
+            auto& m = b.ccMappings[k];
+            idxStr += juce::String(m.paramIndex);
+            enStr += m.enabled ? '1' : '0';
+            valStr += juce::String((int)m.ccValue);
+
+            if (k < (int)b.ccMappings.size() - 1)
+            {
+                idxStr += ',';
+                enStr += ',';
+                valStr += ',';
+            }
+        }
+        props.setValue("bank_" + juce::String(i) + "_ccParamIndices", idxStr);
+        props.setValue("bank_" + juce::String(i) + "_ccEnabled", enStr);
+        props.setValue("bank_" + juce::String(i) + "_ccValues", valStr);
+
+        // 4) Номер пресета плагина
+        props.setValue("bank_" + juce::String(i) + "_pluginPreset",
+            b.pluginPreset);
+    }
+
+    props.saveIfNeeded();
+}
+
+
+//==============================================================================
+
+void BankManager::loadSettingsFromFile(const juce::File& configFile)
+{
+    if (!configFile.existsAsFile())
+        return;
+
+    juce::PropertiesFile::Options opts;
+    opts.applicationName = "MyBankManagerApp";
+    juce::PropertiesFile props(configFile, opts);
+
+    for (int i = 0; i < (int)banks.size(); ++i)
+    {
+        auto& b = banks[i];
+
+        // 1) Имя банка
+        b.bankName = props.getValue("bankName_" + juce::String(i),
+            b.bankName);
+
+        // 2) По-пресету: имя, ccPresetStates и presetVolumes
+        for (int j = 0; j < 6; ++j)
+        {
+            // a) имя пресета
+            b.presetNames.set(j,
+                props.getValue("bank_" + juce::String(i)
+                    + "_preset_" + juce::String(j),
+                    b.presetNames[j]));
+
+            // b) состояние CC
+            juce::String stateStr = props.getValue(
+                "bank_" + juce::String(i)
+                + "_ccStates_" + juce::String(j), "");
+
+            if (stateStr.isNotEmpty())
+            {
+                juce::StringArray toks(stateStr, ",", "");
+                int limit = juce::jmin((int)toks.size(),
+                    (int)b.ccPresetStates[j].size());
+                for (int k = 0; k < limit; ++k)
+                    b.ccPresetStates[j][k]
+                    = (toks[k].getIntValue() != 0);
+            }
+
+            // c) громкость пресета
+            b.presetVolumes[j]
+                = (float)props.getDoubleValue(
+                    "bank_" + juce::String(i)
+                    + "_volume_" + juce::String(j),
+                    b.presetVolumes[j]);
+        }
+
+        // 3) Восстанавливаем полный CC-mapping
+        auto idxStr = props.getValue(
+            "bank_" + juce::String(i) + "_ccParamIndices", "");
+        auto enStr = props.getValue(
+            "bank_" + juce::String(i) + "_ccEnabled", "");
+        auto valStr = props.getValue(
+            "bank_" + juce::String(i) + "_ccValues", "");
+
+        if (idxStr.isNotEmpty() && enStr.isNotEmpty() && valStr.isNotEmpty())
+        {
+            juce::StringArray idxTok(idxStr, ",", "");
+            juce::StringArray enTok(enStr, ",", "");
+            juce::StringArray valTok(valStr, ",", "");
+
+            // Вложенные juce::jmin — так, чтобы не использовать initializer_list
+            int count = juce::jmin(
+                (int)idxTok.size(),
+                juce::jmin(
+                    (int)enTok.size(),
+                    juce::jmin(
+                        (int)valTok.size(),
+                        (int)b.ccMappings.size()
+                    )
+                )
+            );
+
+            for (int k = 0; k < count; ++k)
+            {
+                auto& m = b.ccMappings[k];
+                m.paramIndex = idxTok[k].getIntValue();
+                m.enabled = (enTok[k].getIntValue() != 0);
+                m.ccValue = (uint8_t)juce::jlimit(
+                    0, 127,
+                    valTok[k].getIntValue());
+            }
+        }
+
+        // 4) Номер пресета плагина
+        b.pluginPreset = props.getIntValue(
+            "bank_" + juce::String(i) + "_pluginPreset",
+            b.pluginPreset);
+    }
+
+    // После загрузки — обновляем UI
+    for (int i = 0; i < bankRows.size(); ++i)
+    {
+        auto& b = banks[i];
+        bankRows[i]->updateFields(b.bankName,
+            b.presetNames,
+            juce::String(b.pluginPreset));
+        bankRows[i]->updateMappingEditors(b.ccMappings);
+    }
+
+    if (onBankManagerChanged)
+        onBankManagerChanged();
+
+    updateRowHighlighting();
+}
+// BankManager.cpp
+
+
+
+
+
