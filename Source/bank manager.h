@@ -1,0 +1,105 @@
+#pragma once
+
+
+
+#include <JuceHeader.h>
+#include "BankRow.h"   
+#include <vector>
+#include <array>
+#include <functional>
+
+#include "SetCCDialog.h"   // CCMapping, CCMapArray и SetCCDialog
+
+
+
+class VSTHostComponent;        // forward
+class BankRow;
+//==============================================================================
+// BankManager — только декларации
+//==============================================================================
+class BankManager
+    : public juce::Component,
+    public juce::Button::Listener,
+    private juce::Timer
+{
+public:
+
+
+
+    // Вложенная модель одного банка
+    struct Bank
+    {
+        Bank();  // реализуем в .cpp
+
+        juce::String                         bankName;
+        juce::StringArray                    presetNames;     // ровно 6 имён
+        std::vector<std::vector<bool>>       ccPresetStates;  // [6][10]
+        CCMapArray                           ccMappings;      // [10]
+        std::vector<float>                   presetVolumes;   // [6]
+        int                                  pluginPreset;    // текущий пресет
+    };
+
+    // ctor/dtor
+    BankManager();                                // дефолтный
+    explicit BankManager(VSTHostComponent* host); // основной
+
+
+    ~BankManager() override;
+
+    // Component overrides
+    void paint(juce::Graphics& g) override;
+    void resized()                  override;
+
+    // Button::Listener
+    void buttonClicked(juce::Button* b) override;
+
+    // Работа с моделью
+    const std::vector<Bank>& getBanks()           const noexcept;
+    std::vector<Bank>& getBanks()                 noexcept;
+
+    int  getActiveBankIndex()            const noexcept;
+    void setActiveBankIndex(int newIndex);
+
+    void setPluginPresetSupported(bool supported);
+
+    // коллбэк при изменении
+    std::function<void()> onBankManagerChanged;
+
+    // convenience-wrappers
+    void loadSettings();
+
+    void saveSettings();
+
+    // доступ к данным…
+    const Bank& getBank(int index) const noexcept;
+    Bank& getBank(int index) noexcept;
+
+private:
+    // таймер автосохранения
+    void timerCallback() override;
+    void restartAutoSaveTimer();
+
+    // persistence
+    void saveSettingsToFile(const juce::File& configFile);
+    void loadSettingsFromFile(const juce::File& configFile);
+
+    // помощь UI ↔ модель
+    void resetAllDefaults();
+    void updateRowHighlighting();
+
+    // данные
+    std::vector<Bank>                banks;
+    int                              currentBankIndex = 0;
+
+    juce::OwnedArray<BankRow>bankRows;            // OwnedArray<BankRow>
+    std::unique_ptr<juce::Component> rowContainer;
+    juce::Viewport                   viewport;
+    juce::TextButton                 resetDefaultsButton;
+    juce::OwnedArray<juce::TextButton> setCCButtons;       // OwnedArray<TextButton>
+
+    VSTHostComponent* vstHost;             // инициализируется в ctor
+
+
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(BankManager)
+};
