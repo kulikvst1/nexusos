@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="KoKzj7" name="NEXUS OS" projectType="guiapp" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1">
+  <MAINGROUP id="SEiJGR" name="NEXUS OS">
+    <GROUP id="{815A5BE3-6ED2-C6CB-9BD1-16DF1281C639}" name="Source">
+      <FILE id="MDSvnJ" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="vbw73T" name="vst_host.h" compile="0" resource="0" file="Source/vst_host.h"/>
+      <FILE id="bKkrk4" name="SetCCDialog.h" compile="0" resource="0" file="Source/SetCCDialog.h"/>
+      <FILE id="w0iTZq" name="bank_editor.h" compile="0" resource="0" file="Source/bank_editor.h"/>
+      <FILE id="RVyJHk" name="FileManager.h" compile="0" resource="0" file="Source/FileManager.h"/>
+      <FILE id="YpJfQH" name="custom_audio_playhead.h" compile="0" resource="0"
+            file="Source/custom_audio_playhead.h"/>
+      <FILE id="XNoor1" name="plugin_process_callback.h" compile="0" resource="0"
+            file="Source/plugin_process_callback.h"/>
+      <FILE id="iCOm8G" name="plugin_process_callback.cpp" compile="1" resource="0"
+            file="Source/plugin_process_callback.cpp"/>
+      <FILE id="N5wscz" name="cpu_load.h" compile="0" resource="0" file="Source/cpu_load.h"/>
+      <FILE id="AifqQl" name="bank_editor.cpp" compile="1" resource="0" file="Source/bank_editor.cpp"/>
+      <FILE id="cY7uOU" name="tap_tempo.h" compile="0" resource="0" file="Source/tap_tempo.h"/>
+      <FILE id="xn5krz" name="fount_label.h" compile="0" resource="0" file="Source/fount_label.h"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_PLUGINHOST_VST3="1" JUCE_ASIO="1"
+               JUCE_WASAPI="1" JUCE_DIRECTSOUND="1"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="NewProject" headerPath="C:\JUCE\asiosdk_2.3.3_2019-06-14\asiosdk_2.3.3_2019-06-14\common"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="NewProject" headerPath="C:\JUCE\asiosdk_2.3.3_2019-06-14\asiosdk_2.3.3_2019-06-14\common"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../modules"/>
+        <MODULEPATH id="juce_events" path="../../modules"/>
+        <MODULEPATH id="juce_graphics" path="../../modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../modules"/>
+        <MODULEPATH id="juce_dsp" path="../../modules"/>
+        <MODULEPATH id="juce_opengl" path="../../modules"/>
+      </MODULEPATHS>
+    </VS2022>
+  </EXPORTFORMATS>
+</JUCERPROJECT>
