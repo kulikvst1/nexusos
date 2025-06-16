@@ -5,6 +5,7 @@
   <MAINGROUP id="SEiJGR" name="NEXUS OS">
     <GROUP id="{815A5BE3-6ED2-C6CB-9BD1-16DF1281C639}" name="Source">
       <FILE id="MDSvnJ" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="AodA7K" name="vst_host.cpp" compile="1" resource="0" file="Source/vst_host.cpp"/>
       <FILE id="vbw73T" name="vst_host.h" compile="0" resource="0" file="Source/vst_host.h"/>
       <FILE id="bKkrk4" name="SetCCDialog.h" compile="0" resource="0" file="Source/SetCCDialog.h"/>
       <FILE id="w0iTZq" name="bank_editor.h" compile="0" resource="0" file="Source/bank_editor.h"/>
