@@ -26,6 +26,7 @@
             file="Source/LearnController.cpp"/>
       <FILE id="ENsl32" name="LearnController.h" compile="0" resource="0"
             file="Source/LearnController.h"/>
+      <FILE id="KTPWNM" name="SafeParamName.h" compile="0" resource="0" file="Source/SafeParamName.h"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
