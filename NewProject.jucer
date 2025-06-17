@@ -20,6 +20,12 @@
       <FILE id="AifqQl" name="bank_editor.cpp" compile="1" resource="0" file="Source/bank_editor.cpp"/>
       <FILE id="cY7uOU" name="tap_tempo.h" compile="0" resource="0" file="Source/tap_tempo.h"/>
       <FILE id="xn5krz" name="fount_label.h" compile="0" resource="0" file="Source/fount_label.h"/>
+      <FILE id="uqRReo" name="Rig_control.cpp" compile="1" resource="0" file="Source/Rig_control.cpp"/>
+      <FILE id="Sukuvh" name="Rig_control.h" compile="0" resource="0" file="Source/Rig_control.h"/>
+      <FILE id="AmijeZ" name="LearnController.cpp" compile="1" resource="0"
+            file="Source/LearnController.cpp"/>
+      <FILE id="ENsl32" name="LearnController.h" compile="0" resource="0"
+            file="Source/LearnController.h"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
