@@ -12,7 +12,7 @@
 #include <string>
 #include"bank_editor.h"
 #include "custom_audio_playhead.h"
-#include "Rig_control.h"
+#include"Rig_control.h"
 //==============================================================================
 
 
@@ -66,8 +66,7 @@ public:
         tabbedComponent = std::make_unique<juce::TabbedComponent>(juce::TabbedButtonBar::TabsAtTop);
         tabbedComponent->addTab("RIG KONTROL", juce::Colours::darkgrey, mainTab.get(), true);
         tabbedComponent->addTab("BANK EDITOR", juce::Colours::darkgrey, bankEditorTab.get(), false);
-       // tabbedComponent->addTab("RIG", juce::Colours::darkgrey, RigControlTab.get(), false);
-        tabbedComponent->addTab("Rig Control", juce::Colours::lightgrey, new Rig_control(), true);
+        tabbedComponent->addTab("Rig Control", juce::Colours::darkgrey, new Rig_control(), true);
 
         //  🚦  Подписка на смену пресета в BankEditor
         auto hostRelay = bankEditorTab->onActivePresetChanged;
@@ -172,7 +171,6 @@ public:
                     volumeSlider->setValue(activeBank.presetVolumes[currentPresetIndex], juce::dontSendNotification);
                 };
         }
-        
         addAndMakeVisible(tabbedComponent.get());
         // *** Ниже идет остальной ваш первоначальный код - все элементы добавляются во вкладку "Main" ***
         // 1) Создаем 10 кнопок для MIDI CC (стандартные)
@@ -1023,7 +1021,6 @@ private:
    
     std::unique_ptr<juce::Component>       mainTab;
     std::unique_ptr<BankEditor>          bankEditorTab;
-    std::unique_ptr<Rig_control>          RigControlTab;
     std::unique_ptr<juce::TabbedComponent> tabbedComponent;
     std::unique_ptr<CpuLoadIndicator> cpuLoadIndicator;
     std::unique_ptr<CustomAudioPlayHead> customAudioPlayHead;

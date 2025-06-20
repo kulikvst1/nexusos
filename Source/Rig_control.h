@@ -1,30 +1,46 @@
-#pragma once
-
-#include <JuceHeader.h>
+п»ї#include <JuceHeader.h>
+#include"fount_label.h"
+#include <functional> // РґР»СЏ std::ref
+#include <vector>
+#include <string>
+#include "custom_audio_playhead.h"
 
 class Rig_control : public juce::Component,
-    public juce::Button::Listener
+    public juce::Button::Listener,
+    public juce::Slider::Listener,
+    public juce::MidiInputCallback,
+    public juce::Timer
 {
 public:
     Rig_control();
     ~Rig_control() override;
 
+    // РџРµСЂРµРѕРїСЂРµРґРµР»С‘РЅРЅС‹Рµ РјРµС‚РѕРґС‹ JUCE РєРѕРјРїРѕРЅРµРЅС‚РѕРІ
     void resized() override;
     void buttonClicked(juce::Button* button) override;
+    void sliderValueChanged(juce::Slider* slider) override;
+    void handleIncomingMidiMessage(juce::MidiInput* source, const juce::MidiMessage& message) override;
+    void timerCallback() override;
 
 private:
-    // Контейнер для всех элементов дизайна
-    juce::Component mainTab;
+    // РљРѕРЅС‚РµР№РЅРµСЂ РґР»СЏ СЌР»РµРјРµРЅС‚РѕРІ РёРЅС‚РµСЂС„РµР№СЃР°
+    std::unique_ptr<juce::Component> mainTab;
 
-    // Массивы кнопок для CC и пресетов
-    juce::OwnedArray<juce::TextButton> ccButtons;
+    // РљРЅРѕРїРєРё-РїСЂРµСЃРµС‚С‹
     juce::OwnedArray<juce::TextButton> presetButtons;
 
-    // Метка для отображения названия банка
+    // РњРµС‚РєР° СЃ РЅР°Р·РІР°РЅРёРµРј Р±Р°РЅРєР°
     juce::Label bankNameLabel;
 
-    // Кнопки управления (SHIFT, TEMPO, UP, DOWN)
+    // РљРЅРѕРїРєРё: SHIFT, TEMPO, UP, DOWN
     std::unique_ptr<juce::TextButton> shiftButton, tempoButton, upButton, downButton;
+
+    // RotaryвЂ‘СЃР»Р°Р№РґРµСЂС‹ Рё РёС… РјРµС‚РєРё
+    std::unique_ptr<juce::Slider> gainSlider, volumeSlider;
+    juce::Label gainLabel, volumeLabel;
+
+    // РћР±СЉРµРєС‚ РєР°СЃС‚РѕРјРЅРѕРіРѕ LookAndFeel
+    CustomLookAndFeel customLF;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Rig_control)
 };
