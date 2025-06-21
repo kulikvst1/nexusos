@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="FtCOpD" name="NEXUS OS " projectType="guiapp" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" version="1.01"
+              companyName="VST STUDIO">
+  <MAINGROUP id="Eqz0nQ" name="NEXUS OS ">
+    <GROUP id="{27B1B860-ACAD-BA7F-E409-1A7AEE93219C}" name="Source">
+      <FILE id="SpPTky" name="bank_editor.cpp" compile="1" resource="0" file="Source/bank_editor.cpp"/>
+      <FILE id="xbi7Cm" name="bank_editor.h" compile="0" resource="0" file="Source/bank_editor.h"/>
+      <FILE id="EP46Sz" name="cpu_load.h" compile="0" resource="0" file="Source/cpu_load.h"/>
+      <FILE id="E1kFjv" name="custom_audio_playhead.h" compile="0" resource="0"
+            file="Source/custom_audio_playhead.h"/>
+      <FILE id="kaNjzJ" name="FileManager.h" compile="0" resource="0" file="Source/FileManager.h"/>
+      <FILE id="zz7o7P" name="fount_label.h" compile="0" resource="0" file="Source/fount_label.h"/>
+      <FILE id="wqf9ZL" name="LearnController.cpp" compile="1" resource="0"
+            file="Source/LearnController.cpp"/>
+      <FILE id="lRJRpq" name="LearnController.h" compile="0" resource="0"
+            file="Source/LearnController.h"/>
+      <FILE id="lx146u" name="plugin_process_callback.cpp" compile="1" resource="0"
+            file="Source/plugin_process_callback.cpp"/>
+      <FILE id="vFdGW6" name="plugin_process_callback.h" compile="0" resource="0"
+            file="Source/plugin_process_callback.h"/>
+      <FILE id="mZPzmj" name="Rig_control.cpp" compile="1" resource="0" file="Source/Rig_control.cpp"/>
+      <FILE id="ccEtyN" name="Rig_control.h" compile="0" resource="0" file="Source/Rig_control.h"/>
+      <FILE id="rjJ0sp" name="SafeParamName.h" compile="0" resource="0" file="Source/SafeParamName.h"/>
+      <FILE id="MQHQJJ" name="SetCCDialog.h" compile="0" resource="0" file="Source/SetCCDialog.h"/>
+      <FILE id="M5DZev" name="tap_tempo.h" compile="0" resource="0" file="Source/tap_tempo.h"/>
+      <FILE id="jQgn5m" name="vst_host.cpp" compile="1" resource="0" file="Source/vst_host.cpp"/>
+      <FILE id="ysa6a6" name="vst_host.h" compile="0" resource="0" file="Source/vst_host.h"/>
+      <FILE id="p8957i" name="Audio_core.cpp" compile="1" resource="0" file="Source/Audio_core.cpp"/>
+      <FILE id="uUCO4I" name="Audio_core.h" compile="0" resource="0" file="Source/Audio_core.h"/>
+      <FILE id="CITS4a" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="bnjBga" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="dI0VcQ" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="woN7tZ" name="midi_control.h" compile="0" resource="0" file="Source/midi_control.h"/>
+      <FILE id="yFN64A" name="midi_control.cpp" compile="1" resource="0"
+            file="Source/midi_control.cpp"/>
+      <FILE id="z6SdTL" name="MainWindow.h" compile="0" resource="0" file="Source/MainWindow.h"/>
+      <FILE id="oxHsnj" name="AudioMidiSettingsDialog.h" compile="0" resource="0"
+            file="Source/AudioMidiSettingsDialog.h"/>
+      <FILE id="ju00Pn" name="AudioMidiSettingsDialog.cpp" compile="1" resource="0"
+            file="Source/AudioMidiSettingsDialog.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_PLUGINHOST_VST3="1" JUCE_ASIO="1"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="NEXUS OS V4" headerPath="C:\JUCE\asiosdk_2.3.3_2019-06-14\asiosdk_2.3.3_2019-06-14\common"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="NEXUS OS V4" headerPath="C:\JUCE\asiosdk_2.3.3_2019-06-14\asiosdk_2.3.3_2019-06-14\common"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../modules"/>
+        <MODULEPATH id="juce_data_structures" path="../modules"/>
+        <MODULEPATH id="juce_events" path="../modules"/>
+        <MODULEPATH id="juce_graphics" path="../modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../modules"/>
+        <MODULEPATH id="juce_dsp" path="../modules"/>
+        <MODULEPATH id="juce_opengl" path="../modules"/>
+      </MODULEPATHS>
+    </VS2022>
+  </EXPORTFORMATS>
+</JUCERPROJECT>
