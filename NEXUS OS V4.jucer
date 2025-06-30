@@ -35,6 +35,9 @@
       <FILE id="IKtwaT" name="MainContentComponent.h" compile="0" resource="0"
             file="Source/MainContentComponent.h"/>
     </GROUP>
+    <FILE id="fykNmo" name="Grid.h" compile="0" resource="0" file="Source/Grid.h"/>
+    <FILE id="QrMVdq" name="LooperComponent.cpp" compile="1" resource="0"
+          file="Source/LooperComponent.cpp"/>
     <FILE id="GvzFll" name="LooperComponent.h" compile="0" resource="0"
           file="Source/LooperComponent.h"/>
     <FILE id="oHjJSx" name="LooperEngine.h" compile="0" resource="0" file="Source/LooperEngine.h"/>
@@ -43,6 +46,7 @@
     <FILE id="vthurp" name="PluginManager.h" compile="0" resource="0" file="Source/PluginManager.h"/>
     <FILE id="uurRGP" name="PluginManagerBox.h" compile="0" resource="0"
           file="Source/PluginManagerBox.h"/>
+    <FILE id="VlR9nB" name="RingBuffer.h" compile="0" resource="0" file="Source/RingBuffer.h"/>
   </MAINGROUP>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
