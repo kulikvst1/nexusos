@@ -47,6 +47,10 @@
     <FILE id="uurRGP" name="PluginManagerBox.h" compile="0" resource="0"
           file="Source/PluginManagerBox.h"/>
     <FILE id="VlR9nB" name="RingBuffer.h" compile="0" resource="0" file="Source/RingBuffer.h"/>
+    <FILE id="Rzh7rL" name="VirtualKeyboardFull.cpp" compile="1" resource="0"
+          file="Source/VirtualKeyboardFull.cpp"/>
+    <FILE id="S6OVtr" name="VirtualKeyboardFull.h" compile="0" resource="0"
+          file="Source/VirtualKeyboardFull.h"/>
   </MAINGROUP>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
