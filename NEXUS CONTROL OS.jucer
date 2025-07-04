@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="qMaZI6" name="NEXUS CONTROL OS" projectType="guiapp" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="VST STUDIO">
+  <MAINGROUP id="v24pvU" name="NEXUS CONTROL OS">
+    <GROUP id="{4F03E6EB-7DD3-0FE2-4A1B-0501B9F8B868}" name="Source">
+      <FILE id="i1RTSu" name="Audio_core.h" compile="0" resource="0" file="Source/Audio_core.h"/>
+      <FILE id="DduVix" name="AudioMidiSettingsDialog.h" compile="0" resource="0"
+            file="Source/AudioMidiSettingsDialog.h"/>
+      <FILE id="HM3zvU" name="bank_editor.cpp" compile="1" resource="0" file="Source/bank_editor.cpp"/>
+      <FILE id="gBtHxJ" name="bank_editor.h" compile="0" resource="0" file="Source/bank_editor.h"/>
+      <FILE id="jaKhgP" name="cpu_load.h" compile="0" resource="0" file="Source/cpu_load.h"/>
+      <FILE id="MXzQJU" name="custom_audio_playhead.h" compile="0" resource="0"
+            file="Source/custom_audio_playhead.h"/>
+      <FILE id="GLd3rh" name="FileManager.h" compile="0" resource="0" file="Source/FileManager.h"/>
+      <FILE id="rzE8hQ" name="fount_label.h" compile="0" resource="0" file="Source/fount_label.h"/>
+      <FILE id="kcFMSy" name="Grid.h" compile="0" resource="0" file="Source/Grid.h"/>
+      <FILE id="Y041U5" name="LearnController.h" compile="0" resource="0"
+            file="Source/LearnController.h"/>
+      <FILE id="q5YFkF" name="LooperComponent.cpp" compile="1" resource="0"
+            file="Source/LooperComponent.cpp"/>
+      <FILE id="dSDrEr" name="LooperComponent.h" compile="0" resource="0"
+            file="Source/LooperComponent.h"/>
+      <FILE id="SIck77" name="LooperEngine.h" compile="0" resource="0" file="Source/LooperEngine.h"/>
+      <FILE id="lRdA5k" name="MainContentComponent.h" compile="0" resource="0"
+            file="Source/MainContentComponent.h"/>
+      <FILE id="gqGhFY" name="MainWindow.h" compile="0" resource="0" file="Source/MainWindow.h"/>
+      <FILE id="xzKqUO" name="plugin_process_callback.cpp" compile="1" resource="0"
+            file="Source/plugin_process_callback.cpp"/>
+      <FILE id="MjVILj" name="plugin_process_callback.h" compile="0" resource="0"
+            file="Source/plugin_process_callback.h"/>
+      <FILE id="ovZh21" name="PluginManager.cpp" compile="1" resource="0"
+            file="Source/PluginManager.cpp"/>
+      <FILE id="ZuPlWC" name="PluginManager.h" compile="0" resource="0" file="Source/PluginManager.h"/>
+      <FILE id="ZFWreq" name="PluginManagerBox.h" compile="0" resource="0"
+            file="Source/PluginManagerBox.h"/>
+      <FILE id="MJBp72" name="PresetChangeListener.cpp" compile="1" resource="0"
+            file="Source/PresetChangeListener.cpp"/>
+      <FILE id="ca9Xil" name="PresetChangeListener.h" compile="0" resource="0"
+            file="Source/PresetChangeListener.h"/>
+      <FILE id="wYmEhg" name="Rig_control.cpp" compile="1" resource="0" file="Source/Rig_control.cpp"/>
+      <FILE id="f0QXUi" name="Rig_control.h" compile="0" resource="0" file="Source/Rig_control.h"/>
+      <FILE id="zZlDQS" name="RingBuffer.h" compile="0" resource="0" file="Source/RingBuffer.h"/>
+      <FILE id="j6Ac61" name="SafeParamName.h" compile="0" resource="0" file="Source/SafeParamName.h"/>
+      <FILE id="LVnxRz" name="SetCCDialog.h" compile="0" resource="0" file="Source/SetCCDialog.h"/>
+      <FILE id="CQNoiJ" name="tap_tempo.h" compile="0" resource="0" file="Source/tap_tempo.h"/>
+      <FILE id="xEEZqV" name="vst_host.cpp" compile="1" resource="0" file="Source/vst_host.cpp"/>
+      <FILE id="RANuYL" name="vst_host.h" compile="0" resource="0" file="Source/vst_host.h"/>
+      <FILE id="sKzsdQ" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="BStdgV" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="jTEK7b" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_ASIO="1" JUCE_PLUGINHOST_VST3="1"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="NEXUS CONTROL OS" headerPath="C:\JUCE\asiosdk_2.3.3_2019-06-14\common"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="NEXUS CONTROL OS" headerPath="C:\JUCE\asiosdk_2.3.3_2019-06-14\common"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_processors" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_utils" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_opengl" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2022>
+  </EXPORTFORMATS>
+</JUCERPROJECT>
