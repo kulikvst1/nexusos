@@ -19,6 +19,9 @@
               file="Source/LooperComponent.h"/>
       </GROUP>
       <GROUP id="{65B44A43-C19D-48D6-96EE-D31A62B67216}" name="Out control">
+        <FILE id="ufjGl4" name="SliderSync.cpp" compile="1" resource="0" file="Source/SliderSync.cpp"/>
+        <FILE id="ytBFLM" name="slider.png" compile="0" resource="1" file="../../Users/111/Downloads/slider.png"/>
+        <FILE id="RGxfDM" name="SliderSync.h" compile="0" resource="0" file="Source/SliderSync.h"/>
         <FILE id="e278dB" name="LevelMeterComponent.cpp" compile="1" resource="0"
               file="Source/LevelMeterComponent.cpp"/>
         <FILE id="Cz30F9" name="LevelMeterComponent.h" compile="0" resource="0"
@@ -53,7 +56,7 @@
       <FILE id="YPexqU" name="custom_audio_playhead.h" compile="0" resource="0"
             file="Source/custom_audio_playhead.h"/>
       <FILE id="JDiWeu" name="FileManager.h" compile="0" resource="0" file="Source/FileManager.h"/>
-      <FILE id="fxWw5O" name="fount_label.h" compile="0" resource="0" file="Source/fount_label.h"/>
+      <FILE id="fxWw5O" name="fount_label.h" compile="0" resource="1" file="Source/fount_label.h"/>
       <FILE id="xkqdhD" name="Grid.h" compile="0" resource="0" file="Source/Grid.h"/>
       <FILE id="SGf40G" name="LearnController.h" compile="0" resource="0"
             file="Source/LearnController.h"/>
