@@ -20,6 +20,10 @@
               file="Source/LooperComponent.h"/>
       </GROUP>
       <GROUP id="{65B44A43-C19D-48D6-96EE-D31A62B67216}" name="Out control">
+        <FILE id="pXAsAE" name="DoublerProcessor.h" compile="0" resource="0"
+              file="Source/DoublerProcessor.h"/>
+        <FILE id="RarrGg" name="SliderSync.cpp" compile="1" resource="0" file="Source/SliderSync.cpp"/>
+        <FILE id="EvZ7xh" name="SliderSync.h" compile="0" resource="0" file="Source/SliderSync.h"/>
         <FILE id="wh30Zb" name="LevelUtils.h" compile="0" resource="0" file="Source/LevelUtils.h"/>
         <FILE id="X60bUR" name="out_control_label.h" compile="0" resource="0"
               file="Source/out_control_label.h"/>
