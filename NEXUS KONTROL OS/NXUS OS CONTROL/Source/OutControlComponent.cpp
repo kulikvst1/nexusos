@@ -151,16 +151,15 @@ OutControlComponent::OutControlComponent()
     addAndMakeVisible(doublerButton);
     doublerButton.setClickingTogglesState(true);
     doublerButton.setToggleState(false, juce::dontSendNotification);
-    doublerButton.setColour(juce::TextButton::buttonOnColourId, juce::Colours::white);
+    doublerButton.setColour(juce::TextButton::buttonOnColourId, juce::Colours::red);
     doublerButton.setColour(juce::TextButton::textColourOffId, juce::Colours::black);
     doublerButton.setLookAndFeel(&customLF);
-
     doublerButton.onClick = [this]()
         {
             bool isByp = doublerButton.getToggleState();
             doublerBypassed.store(isByp, std::memory_order_relaxed);
             doubler.setBypass(isByp);
-            doublerButton.setButtonText(isByp ? "Dbl Off" : "Dbl On");
+            doublerButton.setButtonText(isByp ? "OFF" : "ON");
         };
 
     // 2) Слайдеры «Time», «Depth», «Detune», «Mix»
@@ -173,6 +172,10 @@ OutControlComponent::OutControlComponent()
 
         slider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
         slider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
+        slider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::transparentBlack);//цвет рамки
+        doublerSliders[0].setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::lime);
+        doublerSliders[3].setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::lime);
+        doublerSliders[3].setColour(juce::Slider::rotarySliderOutlineColourId, juce::Colours::darkred);
         slider.setLookAndFeel(&customLF);
         addAndMakeVisible(slider);
 
@@ -774,78 +777,66 @@ void OutControlComponent::resized()
     }
     // X) Doubler: 4 слайдера + подписи + общий лейбл “DABLER”
     {
-        constexpr int   pad = 4;
-        constexpr int   gap = pad * 2;
-        constexpr int   raiseSliders = 8;    // подъём самих слайдеров
-        constexpr int   raiseValueLabels = 12;   // дополнительный подъём value-меток
-        constexpr float fontPct = 0.6f; // масштаб шрифта для main-label
-        constexpr float labelW_pct = 0.5f; // метки уже по ширине
-        constexpr float labelH_scale = 0.8f; // метки уже по высоте
+        // ✏️ — Тебе можно менять эти параметры для точной настройки
+        constexpr int pad = 4;
+        constexpr int labelH = 18;          // ← высота меток ("Time", "Mix")
+        constexpr int textboxH = 20;        // ← высота TextBox (значение слайдера)
+        constexpr float labelW_pct = 0.6f;  // ← ширина метки относительно квадрата
+        constexpr float sliderSizeScale = 1.4f; // ← ✨ масштаб слайдера: 1.0 = базовый, 1.2 = 20% крупнее
 
-        // 1) Объединяем сектора (2,0) и (3,0) и отрезаем паддинг
         auto parent = grid.getSector(2, 0)
             .getUnion(grid.getSector(3, 0))
-            .reduced(pad, pad);
+            .reduced(pad);
 
-        // 2) Берём размеры у gainLabelL, чтобы повторить для Doubler
-        int mainLblH = gainLabelL.getHeight();
-        int mainLblW = gainLabelL.getWidth();
-        int smallLblH = int(mainLblH * labelH_scale);
-        int btnSize = mainLblH;
+        // 🔘 Bypass-кнопка по центру сверху — увеличена ✨
+        int btnSize = labelH * 3;  // ← Можешь менять масштаб здесь!
+        int btnX = parent.getCentreX() - btnSize / 2;
+        int btnY = parent.getY();
+        doublerButton.setBounds(btnX, btnY, btnSize, btnSize);
 
-        // 3) Bypass-кнопка в левом верхнем углу parent, чуть повыше
-        doublerButton.setBounds(
-            parent.getX(),
-            parent.getY() - btnSize - pad,
-            btnSize, btnSize);
-
-        // 4) Main-лейбл «DABLER» внизу parent,
-        //    точно такой же длины и высоты, как gainLabelL
+        // 🏷 Метка "DABLER" по центру снизу (ровно как Gain)
+        int lblW = gainLabelL.getWidth();
+        int lblH = gainLabelL.getHeight();
         doublerLabel.setBounds(
-            parent.getX(),
-            parent.getBottom() - mainLblH,
-            mainLblW, mainLblH);
-        doublerLabel.setFont({ mainLblH * fontPct, juce::Font::bold });
+            parent.getCentreX() - lblW / 2,
+            parent.getBottom() - lblH,
+            lblW,
+            lblH);
+        doublerLabel.setFont({ lblH * 0.6f, juce::Font::bold });
 
-        // 5) Область под два слайдера и их value-метки
-        auto slidersArea = parent
-            .withTrimmedTop(btnSize + pad)
-            .withTrimmedBottom(mainLblH + pad);
+        // 📐 Область под два квадратных блока слайдера
+        auto workingArea = parent.withTrimmedTop(btnSize + pad).withTrimmedBottom(lblH + pad);
+        int quadW = (workingArea.getWidth() - pad) / 2;
+        int quadH = quadW; // квадрат
+        int fullH = int(quadH * sliderSizeScale); // масштабируем
+        int startY = workingArea.getY() + (workingArea.getHeight() - fullH) / 2;
 
-        int sliderW = (slidersArea.getWidth() - gap) / 2;
-        int sliderH = slidersArea.getHeight() - smallLblH - raiseSliders;
+        auto left = juce::Rectangle<int>(workingArea.getX(), startY, quadW, fullH);
+        auto right = left.translated(quadW + pad, 0);
 
-        // — Delay (idx = 0) —
+        // 🎛 Time (idx = 0)
         {
-            auto slot = slidersArea.removeFromLeft(sliderW);
-            auto sliderR = slot.removeFromTop(sliderH)
-                .reduced(pad)
-                .translated(0, -raiseSliders);
-            int  labelW = int(sliderW * labelW_pct);
-            int  labelX = sliderR.getX() + (sliderW - labelW) / 2;
-            int  labelY = sliderR.getBottom() - raiseValueLabels;
+            int labelW = int(quadW * labelW_pct);
+            int labelX = left.getX() + (quadW - labelW) / 2;
+            int sliderY = left.getY();
+            int sliderH = left.getHeight() - textboxH - labelH - pad * 2;
 
-            doublerSliders[0].setBounds(sliderR);
-            doublerNameLabels[0].setBounds(labelX, labelY, labelW, smallLblH);
+            doublerSliders[0].setBounds(left.getX(), sliderY, quadW, sliderH);
+            doublerNameLabels[0].setBounds(labelX, sliderY + sliderH + textboxH + pad, labelW, labelH);
         }
 
-        // промежуток
-        slidersArea.removeFromLeft(gap);
-
-        // — Mix (idx = 3) —
+        // 🎛 Mix (idx = 3)
         {
-            auto slot = slidersArea.removeFromLeft(sliderW);
-            auto sliderR = slot.removeFromTop(sliderH)
-                .reduced(pad)
-                .translated(0, -raiseSliders);
-            int  labelW = int(sliderW * labelW_pct);
-            int  labelX = sliderR.getX() + (sliderW - labelW) / 2;
-            int  labelY = sliderR.getBottom() - raiseValueLabels;
+            int labelW = int(quadW * labelW_pct);
+            int labelX = right.getX() + (quadW - labelW) / 2;
+            int sliderY = right.getY();
+            int sliderH = right.getHeight() - textboxH - labelH - pad * 2;
 
-            doublerSliders[3].setBounds(sliderR);
-            doublerNameLabels[3].setBounds(labelX, labelY, labelW, smallLblH);
+            doublerSliders[3].setBounds(right.getX(), sliderY, quadW, sliderH);
+            doublerNameLabels[3].setBounds(labelX, sliderY + sliderH + textboxH + pad, labelW, labelH);
         }
     }
+
 }
 void OutControlComponent::processAudioBlock(juce::AudioBuffer<float>& buffer) noexcept
 {
