@@ -44,11 +44,9 @@ void OutControlComponent::prepare(double sampleRate, int blockSize) noexcept
     doubler.prepare(spec);
     doubler.setDelayMs(atomicDoublerDelayMs.load(std::memory_order_relaxed));
     doubler.setBypass(doublerBypassed.load(std::memory_order_relaxed));
-
     // 4) Установка начальной задержки из UI-ползунка и состояния bypass
     doubler.setDelayMs(static_cast<float>(doublerSliders[0].getValue()));
     doubler.setBypass(doublerBypassed.load(std::memory_order_relaxed));
-
     // 5) Сброс уровней мастермeтров
     masterMeterL.setLevel(0.f);
     masterMeterR.setLevel(0.f);
@@ -56,7 +54,22 @@ void OutControlComponent::prepare(double sampleRate, int blockSize) noexcept
 
 OutControlComponent::OutControlComponent()
 {
-    setLookAndFeel(&customLF);
+     setLookAndFeel(&customLF);
+    //==================================================================================
+    // EQ 
+    // =================================================================================
+    // EQ BUTTON
+    addAndMakeVisible(bypassButton);
+    bypassButton.setClickingTogglesState(true);
+    bypassButton.setToggleState(false, juce::dontSendNotification);
+    bypassButton.setColour(juce::TextButton::buttonColourId, juce::Colours::darkred); 
+    bypassButton.setColour(juce::TextButton::buttonOnColourId, juce::Colours::red);
+    bypassButton.setColour(juce::TextButton::textColourOffId, juce::Colours::black);
+    bypassButton.setColour(juce::TextButton::textColourOnId, juce::Colours::white);
+    bypassButton.onClick = [this]()
+        {
+            eqBypassed.store(bypassButton.getToggleState(), std::memory_order_relaxed);
+        };
     // 1) rotary-EQ + их подписи
     static const char* names[5] = { "Low-Cut", "Low", "Mid", "High", "High-Cut" };
     for (int i = 0; i < 5; ++i)
@@ -117,11 +130,11 @@ OutControlComponent::OutControlComponent()
 
             }
             eqSliders[i].onValueChange = [this, i]
-                {
+             {
                     // сохраняем новый параметр и помечаем dirty
                     atomicEqVals[i].store((float)eqSliders[i].getValue());
                     eqParamsDirty.store(true);
-                };
+             };
             // подпись EQ под слайдером остаётся прежней
             l.setJustificationType(juce::Justification::centred);
             l.setLookAndFeel(&customLF);
@@ -129,7 +142,6 @@ OutControlComponent::OutControlComponent()
             l.setColour(juce::Label::textColourId, juce::Colours::black);
             l.setOpaque(true);
         }
-
         addAndMakeVisible(eqLabels[i]);
         eqLabels[i].setText(names[i], juce::dontSendNotification);
         eqLabels[i].setJustificationType(juce::Justification::centred);
@@ -138,47 +150,46 @@ OutControlComponent::OutControlComponent()
         eqLabels[i].setColour(juce::Label::textColourId, juce::Colours::black);
         eqLabels[i].setOpaque(true);
     }
-
-    // 2) MASTER EQ над cols 1–3
+    // 2) MASTER EQ над cols 1–3 label
     addAndMakeVisible(masterEqLabel);
     masterEqLabel.setText("MASTER EQ", juce::dontSendNotification);
     masterEqLabel.setJustificationType(juce::Justification::centred);
     masterEqLabel.setLookAndFeel(&customLF);
-
-    // ——— D O U B L E R ———
-
-  // 1) Кнопка вкл/выкл даблера
+ //==========================================================================
+ //                             D O U B L E R 
+ // =========================================================================
     addAndMakeVisible(doublerButton);
     doublerButton.setClickingTogglesState(true);
     doublerButton.setToggleState(false, juce::dontSendNotification);
-    doublerButton.setColour(juce::TextButton::buttonOnColourId, juce::Colours::red);
-    doublerButton.setColour(juce::TextButton::textColourOffId, juce::Colours::black);
-    doublerButton.setLookAndFeel(&customLF);
+    doublerButton.setColour(juce::TextButton::buttonColourId, juce::Colours::red);
+    doublerButton.setColour(juce::TextButton::buttonOnColourId, juce::Colours::darkred);
+    doublerButton.setColour(juce::TextButton::textColourOffId, juce::Colours::white);
+    doublerButton.setColour(juce::TextButton::textColourOnId, juce::Colours::black);
     doublerButton.onClick = [this]()
         {
-            bool isByp = doublerButton.getToggleState();
-            doublerBypassed.store(isByp, std::memory_order_relaxed);
-            doubler.setBypass(isByp);
-            doublerButton.setButtonText(isByp ? "OFF" : "ON");
+            doublerBypassed.store(doublerButton.getToggleState(), std::memory_order_relaxed);
         };
-
     // 2) Слайдеры «Time», «Depth», «Detune», «Mix»
     static const char* doublerNames[] = { "Time", "Depth", "Detune", "Mix" };
-
     for (int i = 0; i < 4; ++i)
     {
         auto& slider = doublerSliders[i];
         auto& label = doublerNameLabels[i];
-
         slider.setSliderStyle(juce::Slider::RotaryHorizontalVerticalDrag);
         slider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 20);
-        slider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::transparentBlack);//цвет рамки
-        doublerSliders[0].setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::lime);
-        doublerSliders[3].setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::lime);
+        doublerSliders[0].setDoubleClickReturnValue(true, 20.0);
+        doublerSliders[3].setDoubleClickReturnValue(true, 0.50);
+        slider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::transparentBlack);
+        doublerSliders[0].setColour(juce::Slider::thumbColourId, juce::Colours::red);
+        doublerSliders[0].setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::blue);
+        doublerSliders[0].setColour(juce::Slider::rotarySliderOutlineColourId, juce::Colours::blue);
+        //
+        doublerSliders[3].setColour(juce::Slider::thumbColourId, juce::Colours::red);
+        doublerSliders[3].setColour(juce::Slider::rotarySliderFillColourId, juce::Colours::blue);
         doublerSliders[3].setColour(juce::Slider::rotarySliderOutlineColourId, juce::Colours::darkred);
         slider.setLookAndFeel(&customLF);
         addAndMakeVisible(slider);
-
+        // LABEL EQ
         label.setText(doublerNames[i], juce::dontSendNotification);
         label.setJustificationType(juce::Justification::centred);
         label.setLookAndFeel(&customLF);
@@ -187,8 +198,7 @@ OutControlComponent::OutControlComponent()
         label.setOpaque(true);
         addAndMakeVisible(label);
     }
-
-    // 3) Привязка ползунка «Time» к задержке (delayMs)
+    // 3) slider «Time» к задержке (delayMs)
     doublerSliders[0].setRange(1.0, 200.0, 1.0);
     doublerSliders[0].setValue(7.0, juce::dontSendNotification);
     doublerSliders[0].onValueChange = [this]()
@@ -196,7 +206,7 @@ OutControlComponent::OutControlComponent()
             atomicDoublerDelayMs.store((float)doublerSliders[0].getValue(),
                 std::memory_order_relaxed);
         };
-    // 4) Привязка ползунка 
+    // 4) slider «Mix» 
     doublerSliders[3].setRange(0.0, 1.0, 0.01);
     doublerSliders[3].setValue(1.0);
     doublerSliders[3].onValueChange = [this]()
@@ -204,8 +214,6 @@ OutControlComponent::OutControlComponent()
             atomicMix.store(static_cast<float>(doublerSliders[3].getValue()),
                 std::memory_order_relaxed);
         };
-
-
     // общая метка DABLER (оформлена как gainLabelL)
     addAndMakeVisible(doublerLabel);
     doublerLabel.setText("DABLER", juce::dontSendNotification);
@@ -218,7 +226,7 @@ OutControlComponent::OutControlComponent()
     // =======================================================
     // 3) Gain L + подписи (настройка в dB, без skew)
     // =======================================================
-   //  Левый слайдер
+   
     gainSliderL.setSliderStyle(juce::Slider::LinearVertical);
     gainSliderL.setTextBoxStyle(juce::Slider::TextBoxAbove, true, 80, 50);
     gainSliderL.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::transparentBlack);
@@ -482,19 +490,7 @@ OutControlComponent::OutControlComponent()
     clipLedR.setVisible(false);
     addAndMakeVisible(clipLedL);
     addAndMakeVisible(clipLedR);
-    // startTimerHz(30);
-     // Настройка кнопки обхода эквалайзера как toggle
-    setupToggleButton(bypassButton,
-        juce::Colour(0xFF660000),  // фон выкл. (darkred)
-        juce::Colours::red,         // фон вкл.
-        juce::Colours::black);      // текст
-
-    bypassButton.onClick = [this]()
-        {
-            eqBypassed.store(bypassButton.getToggleState(), std::memory_order_relaxed);
-        };
-    addAndMakeVisible(bypassButton);
-
+   
     // Лямбда для общей настройки любого ComboBox + Label
     auto setupCombo = [this](juce::ComboBox& box,
         const std::vector<float>& presets,
