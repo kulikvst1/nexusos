@@ -4,6 +4,16 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="VST STUDIO">
   <MAINGROUP id="jhShYp" name="NXUS OS CONTROL">
     <GROUP id="{81E3B359-8422-E864-BFF5-ECE357F61FFF}" name="Source">
+      <GROUP id="{FAEBFA6D-7370-2BEE-9FE7-20293F029A7A}" name="Input control">
+        <FILE id="jlAeTI" name="in_fount_label.h" compile="0" resource="0"
+              file="Source/in_fount_label.h"/>
+        <FILE id="DPkTJW" name="InputControlComponent.cpp" compile="1" resource="0"
+              file="Source/InputControlComponent.cpp"/>
+        <FILE id="wwOc7f" name="InputControlComponent.h" compile="0" resource="0"
+              file="Source/InputControlComponent.h"/>
+        <FILE id="ZVX37r" name="SimpleGate.cpp" compile="1" resource="0" file="Source/SimpleGate.cpp"/>
+        <FILE id="pquhzX" name="SimpleGate.h" compile="0" resource="0" file="Source/SimpleGate.h"/>
+      </GROUP>
       <GROUP id="{801B999F-7646-2C76-C02E-316709D25996}" name="skine"/>
       <GROUP id="{BE522288-27C3-C9A4-FCF3-C21E8365635F}" name="Pligin manager">
         <FILE id="eipIlw" name="PluginManager.cpp" compile="1" resource="0"
