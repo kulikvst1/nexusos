@@ -37,8 +37,8 @@
         <FILE id="wh30Zb" name="LevelUtils.h" compile="0" resource="0" file="Source/LevelUtils.h"/>
         <FILE id="X60bUR" name="out_control_label.h" compile="0" resource="0"
               file="Source/out_control_label.h"/>
-        <FILE id="yvJGhi" name="slider2.png" compile="0" resource="1" file="../../Users/111/Downloads/slider2.png"/>
-        <FILE id="ytBFLM" name="slider.png" compile="0" resource="1" file="../../Users/111/Downloads/slider.png"/>
+        <FILE id="nAOWD6" name="slider2.png" compile="0" resource="1" file="images/slider2.png"/>
+        <FILE id="E7U10e" name="slider.png" compile="0" resource="1" file="images/slider.png"/>
         <FILE id="UZaih7" name="slider3.png" compile="0" resource="1" file="images/slider3.png"/>
         <FILE id="e278dB" name="LevelMeterComponent.cpp" compile="1" resource="0"
               file="Source/LevelMeterComponent.cpp"/>
@@ -56,8 +56,9 @@
               file="Source/OutControlComponent.h"/>
       </GROUP>
       <GROUP id="{7997EB0F-5675-6819-59AA-DD3E21FCBC0F}" name="Tuner">
-        <FILE id="gUD998" name="PitchEngine.cpp" compile="1" resource="0" file="Source/PitchEngine.cpp"/>
-        <FILE id="cvPha8" name="PitchEngine.h" compile="0" resource="0" file="Source/PitchEngine.h"/>
+        <FILE id="usidAk" name="IPitchDetector.h" compile="0" resource="0"
+              file="Source/IPitchDetector.h"/>
+        <FILE id="K2PNTJ" name="MPMDetector.h" compile="0" resource="0" file="Source/MPMDetector.h"/>
         <FILE id="V5Aqci" name="TunerComponent.cpp" compile="1" resource="0"
               file="Source/TunerComponent.cpp"/>
         <FILE id="EDg9iP" name="TunerComponent.h" compile="0" resource="0"
@@ -120,8 +121,9 @@
   <EXPORTFORMATS>
     <VS2022 targetFolder="Builds/VisualStudio2022">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="NXUS OS CONTROL" headerPath="C:\NEXUS KONTROL OS\NXUS OS CONTROL\asiosdk_2.3.3_2019-06-14\common"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="NXUS OS CONTROL" headerPath="C:\NEXUS KONTROL OS\NXUS OS CONTROL\asiosdk_2.3.3_2019-06-14\common"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="NXUS OS CONTROL" headerPath="E:\NEXUS KONTROL OS\NXUS OS CONTROL\asiosdk_2.3.3_2019-06-14\common"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="NXUS OS CONTROL" headerPath="E:\NEXUS KONTROL OS\NXUS OS CONTROL\asiosdk_2.3.3_2019-06-14\common"
+                       useRuntimeLibDLL="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="C:/JUCE/modules"/>
