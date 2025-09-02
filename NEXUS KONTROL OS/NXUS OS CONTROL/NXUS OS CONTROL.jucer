@@ -4,6 +4,16 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="VST STUDIO">
   <MAINGROUP id="jhShYp" name="NXUS OS CONTROL">
     <GROUP id="{81E3B359-8422-E864-BFF5-ECE357F61FFF}" name="Source">
+      <GROUP id="{2215D98F-3369-8C72-ED15-868289485661}" name="PLAER">
+        <FILE id="lNfJIr" name="FilePlayerComponent.cpp" compile="1" resource="0"
+              file="Source/FilePlayerComponent.cpp"/>
+        <FILE id="hfacRR" name="FilePlayerComponent.h" compile="0" resource="0"
+              file="Source/FilePlayerComponent.h"/>
+        <FILE id="ICUhF7" name="FilePlayerEngine.cpp" compile="1" resource="0"
+              file="Source/FilePlayerEngine.cpp"/>
+        <FILE id="jTefUb" name="FilePlayerEngine.h" compile="0" resource="0"
+              file="Source/FilePlayerEngine.h"/>
+      </GROUP>
       <GROUP id="{FAEBFA6D-7370-2BEE-9FE7-20293F029A7A}" name="Input control">
         <FILE id="jlAeTI" name="in_fount_label.h" compile="0" resource="0"
               file="Source/in_fount_label.h"/>
@@ -30,8 +40,6 @@
               file="Source/LooperComponent.h"/>
       </GROUP>
       <GROUP id="{65B44A43-C19D-48D6-96EE-D31A62B67216}" name="Out control">
-        <FILE id="pXAsAE" name="DoublerProcessor.h" compile="0" resource="0"
-              file="Source/DoublerProcessor.h"/>
         <FILE id="RarrGg" name="SliderSync.cpp" compile="1" resource="0" file="Source/SliderSync.cpp"/>
         <FILE id="EvZ7xh" name="SliderSync.h" compile="0" resource="0" file="Source/SliderSync.h"/>
         <FILE id="wh30Zb" name="LevelUtils.h" compile="0" resource="0" file="Source/LevelUtils.h"/>
