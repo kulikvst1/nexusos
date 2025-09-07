@@ -94,9 +94,6 @@
       <FILE id="xiVZ00" name="vst_host.cpp" compile="1" resource="0" file="Source/vst_host.cpp"/>
       <FILE id="KhMx3P" name="vst_host.h" compile="0" resource="0" file="Source/vst_host.h"/>
       <FILE id="W9UvYD" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-      <FILE id="VDYabT" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="rOlPEm" name="MainComponent.cpp" compile="1" resource="0"
-            file="Source/MainComponent.cpp"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
