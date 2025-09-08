@@ -4,6 +4,18 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="VST STUDIO">
   <MAINGROUP id="jhShYp" name="NXUS OS CONTROL">
     <GROUP id="{81E3B359-8422-E864-BFF5-ECE357F61FFF}" name="Source">
+      <GROUP id="{F92BEA7E-A90D-A66A-0F48-C72B4FC367CA}" name="bank editor">
+        <FILE id="CkS7AC" name="bank_editor.cpp" compile="1" resource="0" file="Source/bank_editor.cpp"/>
+        <FILE id="kuTnMJ" name="bank_editor.h" compile="0" resource="0" file="Source/bank_editor.h"/>
+      </GROUP>
+      <GROUP id="{0C9454FB-7275-3698-AC21-83BF57899A5C}" name="vst host">
+        <FILE id="KhMx3P" name="vst_host.h" compile="0" resource="0" file="Source/vst_host.h"/>
+        <FILE id="xiVZ00" name="vst_host.cpp" compile="1" resource="0" file="Source/vst_host.cpp"/>
+      </GROUP>
+      <GROUP id="{BDC9DEA1-F4CF-46BB-C8E5-F999C20E635A}" name="rig control">
+        <FILE id="QsY7UQ" name="Rig_control.cpp" compile="1" resource="0" file="Source/Rig_control.cpp"/>
+        <FILE id="uDyaJK" name="Rig_control.h" compile="0" resource="0" file="Source/Rig_control.h"/>
+      </GROUP>
       <GROUP id="{FAEBFA6D-7370-2BEE-9FE7-20293F029A7A}" name="Input control">
         <FILE id="jlAeTI" name="in_fount_label.h" compile="0" resource="0"
               file="Source/in_fount_label.h"/>
@@ -64,8 +76,6 @@
       <FILE id="ETDgsM" name="Audio_core.h" compile="0" resource="0" file="Source/Audio_core.h"/>
       <FILE id="OSyhyg" name="AudioMidiSettingsDialog.h" compile="0" resource="0"
             file="Source/AudioMidiSettingsDialog.h"/>
-      <FILE id="CkS7AC" name="bank_editor.cpp" compile="1" resource="0" file="Source/bank_editor.cpp"/>
-      <FILE id="kuTnMJ" name="bank_editor.h" compile="0" resource="0" file="Source/bank_editor.h"/>
       <FILE id="yVgU0a" name="cpu_load.h" compile="0" resource="1" file="Source/cpu_load.h"/>
       <FILE id="YPexqU" name="custom_audio_playhead.h" compile="0" resource="0"
             file="Source/custom_audio_playhead.h"/>
@@ -85,14 +95,10 @@
             file="Source/PresetChangeListener.cpp"/>
       <FILE id="ykcQUx" name="PresetChangeListener.h" compile="0" resource="0"
             file="Source/PresetChangeListener.h"/>
-      <FILE id="QsY7UQ" name="Rig_control.cpp" compile="1" resource="0" file="Source/Rig_control.cpp"/>
-      <FILE id="uDyaJK" name="Rig_control.h" compile="0" resource="0" file="Source/Rig_control.h"/>
       <FILE id="ClcKkm" name="RingBuffer.h" compile="0" resource="0" file="Source/RingBuffer.h"/>
       <FILE id="tpOk8O" name="SafeParamName.h" compile="0" resource="0" file="Source/SafeParamName.h"/>
       <FILE id="JnsiRn" name="SetCCDialog.h" compile="0" resource="0" file="Source/SetCCDialog.h"/>
       <FILE id="yGhimP" name="tap_tempo.h" compile="0" resource="0" file="Source/tap_tempo.h"/>
-      <FILE id="xiVZ00" name="vst_host.cpp" compile="1" resource="0" file="Source/vst_host.cpp"/>
-      <FILE id="KhMx3P" name="vst_host.h" compile="0" resource="0" file="Source/vst_host.h"/>
       <FILE id="W9UvYD" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
     </GROUP>
   </MAINGROUP>
