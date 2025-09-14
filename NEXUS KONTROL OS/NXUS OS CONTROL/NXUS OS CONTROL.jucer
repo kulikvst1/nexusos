@@ -15,6 +15,8 @@
       <GROUP id="{BDC9DEA1-F4CF-46BB-C8E5-F999C20E635A}" name="rig control">
         <FILE id="QsY7UQ" name="Rig_control.cpp" compile="1" resource="0" file="Source/Rig_control.cpp"/>
         <FILE id="uDyaJK" name="Rig_control.h" compile="0" resource="0" file="Source/Rig_control.h"/>
+        <FILE id="UT4pya" name="RigLookAndFeel.h" compile="0" resource="0"
+              file="Source/RigLookAndFeel.h"/>
       </GROUP>
       <GROUP id="{FAEBFA6D-7370-2BEE-9FE7-20293F029A7A}" name="Input control">
         <FILE id="jlAeTI" name="in_fount_label.h" compile="0" resource="0"
