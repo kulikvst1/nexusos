@@ -4,6 +4,12 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="VST STUDIO">
   <MAINGROUP id="jhShYp" name="NXUS OS CONTROL">
     <GROUP id="{81E3B359-8422-E864-BFF5-ECE357F61FFF}" name="Source">
+      <GROUP id="{FAC8E1A6-3875-54FD-4EF6-94C7A317D164}" name="StartMIDI">
+        <FILE id="iuBcSp" name="MidiStartupShutdown.cpp" compile="1" resource="0"
+              file="Source/MidiStartupShutdown.cpp"/>
+        <FILE id="a1lvwH" name="MidiStartupShutdown.h" compile="0" resource="0"
+              file="Source/MidiStartupShutdown.h"/>
+      </GROUP>
       <GROUP id="{F92BEA7E-A90D-A66A-0F48-C72B4FC367CA}" name="bank editor">
         <FILE id="CkS7AC" name="bank_editor.cpp" compile="1" resource="0" file="Source/bank_editor.cpp"/>
         <FILE id="kuTnMJ" name="bank_editor.h" compile="0" resource="0" file="Source/bank_editor.h"/>
@@ -143,5 +149,26 @@
         <MODULEPATH id="juce_opengl" path="C:/JUCE/modules"/>
       </MODULEPATHS>
     </VS2022>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_audio_basics" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_devices" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_formats" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_processors" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_utils" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_core" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_data_structures" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_dsp" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_events" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_graphics" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_basics" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_extra" path="C:\JUCE\modules"/>
+        <MODULEPATH id="juce_opengl" path="C:\JUCE\modules"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
   </EXPORTFORMATS>
 </JUCERPROJECT>
