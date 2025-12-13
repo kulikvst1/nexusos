@@ -210,6 +210,7 @@ public:
         rigControl = std::make_unique<Rig_control>(deviceManager);
         inputControlComponent->setRigControl(rigControl.get());
         rigControl->setInputControlComponent(inputControlComponent.get());
+
         // 🔹 Привязка логики переключения вкладки тюнера
         rigControl->onTunerVisibilityChanged = [this](bool show)
             {
@@ -224,6 +225,27 @@ public:
                 {
                     // Не удаляем вкладку — просто переключаемся на RIG CONTROL
                     ensureRigControlActive();
+                }
+            };
+
+        // 🔹 Привязка логики переключения вкладки лупера
+        rigControl->onLooperVisibilityChanged = [this](bool show)
+            {
+                if (show)
+                {
+                    activateLooperTabIfVisible();
+                    rigControl->setLooperState(true);
+
+                    // 🔹 здесь же отправляем MIDI
+                    rigControl->syncLooperStateToMidi();
+                }
+                else
+                {
+                    ensureRigControlActive();
+                    rigControl->setLooperState(false);
+
+                    // 🔹 сбрасываем состояние наружу
+                    rigControl->syncLooperStateToMidi();
                 }
             };
 
@@ -308,17 +330,16 @@ public:
         tabs.onCurrentTabChanged = [this](int newIndex)
             {
                 updateTunerRouting();
-                if (rigControl)
-                {
-                    auto tabName = tabs.getTabNames()[newIndex];
+                if (!rigControl) return;
 
-                    // INPUT CONTROL — как раньше
-                    if (tabName == "INPUT")
-                        rigControl->sendSettingsMenuState(true);
-                    else
-                        rigControl->sendSettingsMenuState(false);
+                auto tabName = tabs.getTabNames()[newIndex];
 
-                }
+                rigControl->sendSettingsMenuState(tabName == "INPUT");
+
+                if (tabName == "LOOPER")
+                    rigControl->setLooperState(true);   // полный режим: UI + MIDI
+                else
+                    rigControl->sendLooperOff();        // только MIDI, без UI
             };
 
 
@@ -333,7 +354,12 @@ public:
         juce::Desktop::getInstance().addFocusChangeListener(&globalWatcher);
         setSize(900, 600);
     }
-
+    void activateLooperTabIfVisible()
+    {
+        int looperIndex = getTabIndexByName("LOOPER");
+        if (looperIndex >= 0 && tabs.getCurrentTabIndex() != looperIndex)
+            tabs.setCurrentTabIndex(looperIndex, true);
+    }
     // Гарантирует, что OUT CONTROL всегда последняя
     void ensureOutControlLast()
     {
@@ -431,24 +457,51 @@ public:
         // === Вкладки ===
         tabs.setBounds(area); // ← занимают всю оставшуюся область
     }
-    void setLooperTabVisible(bool shouldShow)
+    void MainContentComponent::setLooperTabVisibleFromButton(bool shouldShow)
+    {
+        looperSyncInternal = true;
+        setLooperTabVisible(shouldShow);
+        looperSyncInternal = false;
+    }
+    void MainContentComponent::setLooperTabVisible(bool shouldShow)
     {
         if (shouldShow && !looperTabVisible)
         {
-            tabs.addTab("LOOPER",juce::Colour::fromRGBA(50, 62, 68, 255),looperComponent.get(),false);
+            // Добавляем вкладку Looper
+            tabs.addTab("LOOPER",
+                juce::Colour::fromRGBA(50, 62, 68, 255),
+                looperComponent.get(),
+                false);
+
             looperTabVisible = true;
+
             ensureRigControlActive();
         }
         else if (!shouldShow && looperTabVisible)
         {
+            // Удаляем вкладку Looper
             if (auto i = findTabIndexFor(looperComponent.get()); i >= 0)
-            tabs.removeTab(i);
+                tabs.removeTab(i);
+
             looperTabVisible = false;
-            selectBestTabAfterChange(); // вместо tabs.setCurrentTabIndex(0, ...)
+
+            ensureRigControlActive();
         }
+
+        // Синхронизация с Rig_control
+        if (rigControl)
+        {
+            // если вкладка есть → встроенный Looper скрыт
+            rigControl->setEmbeddedLooperVisible(!looperTabVisible);
+
+            // всегда сбрасываем Looper в OFF
+            rigControl->setLooperState(false);
+        }
+
         ensureOutControlLast();
         updateTunerRouting();
     }
+
 
     void setTunerTabVisible(bool shouldShow)
     {
@@ -579,5 +632,6 @@ private:
     bool                                      inControlTabVisible = false;
     GlobalTextInputWatcher globalWatcher;
     IconTextTabLookAndFeel inputTabLF;
+    bool looperSyncInternal = false;
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainContentComponent)
 };
