@@ -4,29 +4,11 @@
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" companyName="VST STUDIO">
   <MAINGROUP id="jhShYp" name="NEXUS OS">
     <GROUP id="{81E3B359-8422-E864-BFF5-ECE357F61FFF}" name="Source">
-      <GROUP id="{65B44A43-C19D-48D6-96EE-D31A62B67216}" name="Out control">
-        <FILE id="RarrGg" name="SliderSync.cpp" compile="1" resource="0" file="Source/SliderSync.cpp"/>
-        <FILE id="EvZ7xh" name="SliderSync.h" compile="0" resource="0" file="Source/SliderSync.h"/>
-        <FILE id="wh30Zb" name="LevelUtils.h" compile="0" resource="0" file="Source/LevelUtils.h"/>
-        <FILE id="X60bUR" name="out_control_label.h" compile="0" resource="0"
-              file="Source/out_control_label.h"/>
-        <FILE id="nAOWD6" name="slider2.png" compile="0" resource="1" file="images/slider2.png"/>
-        <FILE id="E7U10e" name="slider.png" compile="0" resource="1" file="images/slider.png"/>
-        <FILE id="UZaih7" name="slider3.png" compile="0" resource="1" file="images/slider3.png"/>
-        <FILE id="e278dB" name="LevelMeterComponent.cpp" compile="1" resource="0"
-              file="Source/LevelMeterComponent.cpp"/>
-        <FILE id="Cz30F9" name="LevelMeterComponent.h" compile="0" resource="0"
-              file="Source/LevelMeterComponent.h"/>
-        <FILE id="e1JGAI" name="LevelScaleComponent.cpp" compile="1" resource="1"
-              file="Source/LevelScaleComponent.cpp"/>
-        <FILE id="p3yhOY" name="LevelScaleComponent.h" compile="0" resource="0"
-              file="Source/LevelScaleComponent.h"/>
-        <FILE id="SFBNfs" name="OutControlComponent.cpp" compile="1" resource="0"
-              file="Source/OutControlComponent.cpp"/>
-        <FILE id="pXLrAK" name="eq_dsp.h" compile="0" resource="0" file="Source/eq_dsp.h"/>
-        <FILE id="QcZjUa" name="eq_dsp.cpp" compile="1" resource="0" file="Source/eq_dsp.cpp"/>
-        <FILE id="q52Vg7" name="OutControlComponent.h" compile="0" resource="0"
-              file="Source/OutControlComponent.h"/>
+      <FILE id="xquoi4" name="SerialThread.h" compile="0" resource="0" file="Source/SerialThread.h"/>
+      <GROUP id="{A129EDC1-7816-A4C7-9AAF-923BA9E85F95}" name="Audio Midi setting">
+        <FILE id="OSyhyg" name="AudioMidiSettingsDialog.h" compile="0" resource="0"
+              file="Source/AudioMidiSettingsDialog.h"/>
+        <FILE id="DX2HIP" name="MidiManager.h" compile="0" resource="0" file="Source/MidiManager.h"/>
       </GROUP>
       <GROUP id="{79B8507D-6FCA-D993-8555-21AF118AF662}" name="File manager">
         <FILE id="rdet7x" name="FileManager.cpp" compile="1" resource="0" file="Source/FileManager.cpp"/>
@@ -63,7 +45,26 @@
               file="Source/InputControlComponent.h"/>
         <FILE id="pquhzX" name="SimpleGate.h" compile="0" resource="0" file="Source/SimpleGate.h"/>
       </GROUP>
-      <GROUP id="{801B999F-7646-2C76-C02E-316709D25996}" name="skine"/>
+      <GROUP id="{801B999F-7646-2C76-C02E-316709D25996}" name="skine">
+        <FILE id="Vr3ByN" name="config.png" compile="0" resource="1" file="images/config.png"/>
+        <FILE id="XDp0NT" name="fileManeger.png" compile="0" resource="1" file="images/fileManeger.png"/>
+        <FILE id="OXH4g8" name="Input.png" compile="0" resource="1" file="images/Input.png"/>
+        <FILE id="FlBNYM" name="TunMode.png" compile="0" resource="1" file="images/TunMode.png"/>
+        <FILE id="ZHUdsj" name="looper.png" compile="0" resource="1" file="images/looper.png"/>
+        <FILE id="UHPAjK" name="BankEdit.png" compile="0" resource="1" file="images/BankEdit.png"/>
+        <FILE id="ekkAI0" name="Tuning.png" compile="0" resource="1" file="images/Tuning.png"/>
+        <FILE id="Lv4bP1" name="RigControl.png" compile="0" resource="1" file="images/RigControl.png"/>
+        <FILE id="hrl0KX" name="IconManager.h" compile="0" resource="0" file="Source/IconManager.h"/>
+        <FILE id="C3U4US" name="KeyOff.png" compile="0" resource="1" file="images/KeyOff.png"/>
+        <FILE id="LXZVsf" name="Update.png" compile="0" resource="1" file="images/Update.png"/>
+        <FILE id="mNWPru" name="close.png" compile="0" resource="1" file="images/close.png"/>
+        <FILE id="NjCVze" name="Output.png" compile="0" resource="1" file="images/Output.png"/>
+        <FILE id="oWtswd" name="vstEdit.png" compile="0" resource="1" file="images/vstEdit.png"/>
+        <FILE id="twoSsS" name="PowerOff.png" compile="0" resource="1" file="images/PowerOff.png"/>
+        <FILE id="hHNuKW" name="Key.png" compile="0" resource="1" file="images/Key.png"/>
+        <FILE id="AOkIDC" name="vstManager.png" compile="0" resource="1" file="images/vstManager.png"/>
+        <FILE id="p3IZH8" name="fscreen.png" compile="0" resource="1" file="images/fscreen.png"/>
+      </GROUP>
       <GROUP id="{BE522288-27C3-C9A4-FCF3-C21E8365635F}" name="Pligin manager">
         <FILE id="eipIlw" name="PluginManager.cpp" compile="1" resource="0"
               file="Source/PluginManager.cpp"/>
@@ -78,6 +79,30 @@
         <FILE id="d21mG6" name="LooperComponent.h" compile="0" resource="0"
               file="Source/LooperComponent.h"/>
       </GROUP>
+      <GROUP id="{65B44A43-C19D-48D6-96EE-D31A62B67216}" name="Out control">
+        <FILE id="RarrGg" name="SliderSync.cpp" compile="1" resource="0" file="Source/SliderSync.cpp"/>
+        <FILE id="EvZ7xh" name="SliderSync.h" compile="0" resource="0" file="Source/SliderSync.h"/>
+        <FILE id="wh30Zb" name="LevelUtils.h" compile="0" resource="0" file="Source/LevelUtils.h"/>
+        <FILE id="X60bUR" name="out_control_label.h" compile="0" resource="0"
+              file="Source/out_control_label.h"/>
+        <FILE id="nAOWD6" name="slider2.png" compile="0" resource="1" file="images/slider2.png"/>
+        <FILE id="E7U10e" name="slider.png" compile="0" resource="1" file="images/slider.png"/>
+        <FILE id="UZaih7" name="slider3.png" compile="0" resource="1" file="images/slider3.png"/>
+        <FILE id="e278dB" name="LevelMeterComponent.cpp" compile="1" resource="0"
+              file="Source/LevelMeterComponent.cpp"/>
+        <FILE id="Cz30F9" name="LevelMeterComponent.h" compile="0" resource="0"
+              file="Source/LevelMeterComponent.h"/>
+        <FILE id="e1JGAI" name="LevelScaleComponent.cpp" compile="1" resource="1"
+              file="Source/LevelScaleComponent.cpp"/>
+        <FILE id="p3yhOY" name="LevelScaleComponent.h" compile="0" resource="0"
+              file="Source/LevelScaleComponent.h"/>
+        <FILE id="SFBNfs" name="OutControlComponent.cpp" compile="1" resource="0"
+              file="Source/OutControlComponent.cpp"/>
+        <FILE id="pXLrAK" name="eq_dsp.h" compile="0" resource="0" file="Source/eq_dsp.h"/>
+        <FILE id="QcZjUa" name="eq_dsp.cpp" compile="1" resource="0" file="Source/eq_dsp.cpp"/>
+        <FILE id="q52Vg7" name="OutControlComponent.h" compile="0" resource="0"
+              file="Source/OutControlComponent.h"/>
+      </GROUP>
       <GROUP id="{7997EB0F-5675-6819-59AA-DD3E21FCBC0F}" name="Tuner">
         <FILE id="usidAk" name="IPitchDetector.h" compile="0" resource="0"
               file="Source/IPitchDetector.h"/>
@@ -88,8 +113,6 @@
               file="Source/TunerComponent.h"/>
       </GROUP>
       <FILE id="ETDgsM" name="Audio_core.h" compile="0" resource="0" file="Source/Audio_core.h"/>
-      <FILE id="OSyhyg" name="AudioMidiSettingsDialog.h" compile="0" resource="0"
-            file="Source/AudioMidiSettingsDialog.h"/>
       <FILE id="yVgU0a" name="cpu_load.h" compile="0" resource="1" file="Source/cpu_load.h"/>
       <FILE id="YPexqU" name="custom_audio_playhead.h" compile="0" resource="0"
             file="Source/custom_audio_playhead.h"/>
@@ -135,9 +158,8 @@
   <EXPORTFORMATS>
     <VS2022 targetFolder="Builds/VisualStudio2022">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="NXUS OS CONTROL" headerPath="C:\NEXUS KONTROL OS\NXUS OS CONTROL\asiosdk_2.3.3_2019-06-14\common"
-                       useRuntimeLibDLL="0"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="NXUS OS CONTROL" headerPath="C:\NEXUS KONTROL OS\NXUS OS CONTROL\asiosdk_2.3.3_2019-06-14\common"
+        <CONFIGURATION isDebug="1" name="Debug" targetName="NEXUS OS" headerPath="E:\NEXUS OS\NEXUS OS\asiosdk_2.3.3_2019-06-14\common"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="NEXUS OS" headerPath="E:\NEXUS OS\NEXUS OS\asiosdk_2.3.3_2019-06-14\common"
                        useRuntimeLibDLL="0"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
